@@ -1,1 +1,118 @@
 go语法第一篇
+1、永远的hello world
+
+package main  #所有的 Go 文件以 package <something>
+import "fmt"
+
+func main()
+{
+  fmt.Printf("hello, world") #第 8 行调用了来自于 fmt 包的函数打印字符串到屏幕
+}
+
+2、编译和运行代码
+
+编译：go build helloworld.go
+执行：./helloworld
+
+3、go的环境变量设置
+step 1、 tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz   /usr/local 是go源码包解压的目录
+
+setp 2、 export PATH=$PATH:/usr/local/go/bin 设置PATH
+
+step 3、 export GOROOT=$HOME/go
+
+step 4、 export PATH=$PATH:$GOROOT/bin
+
+执行完上面四个步骤，恭喜你，你已经可以使用go啦。
+
+4、安装完go和环境变量的配置，让我们来看看go的一些基础语法（其实有过C、C++、python语言的人或者学习过任何语言的人都知道，语言无非就是一堆语法和数据结构，通过一些逻辑串在一起）
+   (1) 声明 
+        var a int
+        var b int
+  （2）定义
+        a = 15
+        b = 0
+  （3） 声明和定义一起完成
+        a := 15
+        b := 0
+   (4)  多个var 的变量可以声明成一个数组
+        var （
+              x int
+              y int
+            ）
+        x, y := 20, 16
+    (5) 特殊变量名 _(下划线) 赋值给这个特殊变量的任何值都会被丢弃
+        _b, a := 34, 35
+    (6) go 会对声明了但是没有使用的变量报错，例如下面的例子
+        package main
+        func main（） {
+            var i int
+        }
+    （7）常量 常量在 Go 中，也就是 constant
+          const x = 42 生成 x 这个常量
+          const (
+                  a = iota
+                  b = iota
+                )
+        第一个 iota 表示为 0，因此 a 等于 0，当 iota 再次在新的一行使用时，它的值增加
+        了 1，因此 b 的值是 1
+        
+        如果需要，可以明确指定常量的类型：
+        const (
+                a = 0 ← Is an int now
+                b string = "0"
+              )
+              
+      内建类型string
+      s := "hello"
+      字符串在 Go 中是 UTF-8 的由双引号（”）包裹的字符序列。如果你使用单引号（’）则
+      表示一个字符（UTF-8 编码）
+      
+      一旦给变量赋值，字符串就不能修改了：在 Go 中字符串是不可变的
+      
+      如果要在go中修改字符串，可以使用如下的方法
+      
+      s := "hello"
+      c := []rune(s)  转换 s 为 rune 数组 Rune 是 int32 的别名。用 UTF-8 进行编码
+      c[0] = 'c'修改数组的第一个元素
+      s2 := string (c)创建 新的 字符串 s2 保存修改
+      fmt.Printf("%s\n", s2) 用 fmt.Printf 函数输出字符串
+      
+      多行字符串
+      s := "Starting part" +
+            "Ending part"
+      Go 就不会在错误的地方插入分号。另一种方式是使用反引号 ` 作为 原始 字符串符
+      号：
+        s := `Starting part
+              Ending part`
+      错误类型
+      
+      var e error 定义了一个 error 类型的变量 e ，其的值是 nil 。这个 error 类型是一个接
+      口
+  5、关键字
+    break  
+    default 
+    func  用于定义函数和方法 
+    interface 
+    select  用于选择不同类型的通讯
+    case 
+    defer
+    go  用于并行
+    map  
+    struct 用于抽象数据类型
+    chan 
+    else  
+    goto 
+    package 
+    switch 
+    const 
+    fallthrough 
+    if 
+    range 
+    type 
+    continue 
+    for 
+    import
+    return  用于从函数返回 
+    var
+        
