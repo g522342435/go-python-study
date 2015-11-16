@@ -1,0 +1,138 @@
+1、控制结构
+  （1）if else
+        if x > 0 {
+          return x
+        }
+        else{
+          return y
+        }
+      if 和 switch 接受初始化语句，例如：
+      if err := chmod(066); err != nil {
+        fmt.PrintLn("err")
+        return err
+      }
+      if true && true {
+        fmt.PrintLn("")
+      }
+      if ! false {
+        fmt.Print()
+      }
+  （2）goto 跳转到本函数内的某个地方
+      func myfunc {
+          i := 0
+        Here:(标签的大小写是敏感的)
+            fmt.PrintLn()
+            i++
+            goto Here
+      }
+  （3）for
+      for init; condition; post{} 跟C语言的形式一样
+      for condition {} 跟while 一样
+      
+      for example 
+      sum := 0
+      for i := 0; i < 10; ++i {
+        sum += i
+      } i 的实例在这一行结束的时候会消失
+      
+      for 中如果执行多个变量，应当使用 平行赋值
+      for i, j := 0, len(a)-1; i<j; i,j = i+1, j-1 {
+          a[i], a[j] = a[j], a[i] //平行赋值
+      }
+    （4）break continue // break 退出循环，也可以终止当前的循环
+          for i := 0; i < 10; ++i {
+              if i > 5 {
+                  break
+              }
+              fmt.PrinLn(i)
+          }
+    （5）range 是一个迭代器，从循环的内容中返回一个键值对
+         当对slice array 做循环时，range返回序号作为键，这个序号对应的内容为值
+         list := []string{"a", "b", "c", "d"} //创建一个字符串的 slice
+         for k, v := range list {
+         //用 range 对其进行循环。每一个迭代， range 将返回 int 类型的序号， string
+类型的值，以 0 和 “a” 开始
+        }
+        
+        字符串中使用range
+        for pos, char := range "a@b" {
+          fmt.Printf
+        }
+      （6）switch
+          func unhex(c byte ) byte {
+            switch {
+              case '0' <= c && c <= '9':
+                return c - '0'
+              case 'a' <= c && c <= 'f':
+                return c - 'a' + 10
+              case 'A' <= c && c <= 'F':
+                return c - 'A' + 10
+            }
+              return 0
+          }
+  2、内建函数
+      close 用于 channel 通讯。使用它来关闭 channel，参阅第 6 章了解更多
+      delete 用于map 删除实例
+      len 和 cap 可用于不同的类型，len 返回字符串、slice和数组的长度
+      new 各种类型的内存分配
+      make用于内建类型（map、slice、channel）用make分配内存
+      copy 用于复制slice
+      append 用于追加slice
+      panic和recover 用于异常处理
+      print 和 printLn 底层打印函数
+      complex、real、imag 处理复数
+  3、array、slices map
+      （1） array  由 [n]<type>, n 标识array的长度，<type>存储的是类型
+            var arr [10]int 
+            arr[0] = 43
+            arr[1] = 12
+            fmt.PrintLn()
+      （2）array的复合声明
+            a := [3]int{1,2,3}
+      （3）slice 与array相近，slice 在元素增加的时候可以自动增加大小，slice 底层总是指向array，slice 是指向array的一个指针，slice是一个
+            引用类型，
+            创建引用类型的slice 使用make来创建
+            s := make([]int, 10)
+            
+            创建普通的slice
+            s2 := a[1:5]
+            append 追加slice
+            s0 := [] int { 0, 0 }
+            ；s1 := append (s0, 2)
+            s2 := append (s1, 3, 5, 7)
+            s3 := append (s2, s0...)
+           
+           函数 copy 从源 slice src 复制元素到目标 dst ，并且返回复制的元素的个
+            数。源和目标可能重?。元素复制的数量是 len (src) 和 len (dst) 中的最
+            小值 
+            var a = [...] int { 0, 1, 2, 3, 4, 5, 6, 7 }
+            var s = make ([] int , 6)
+            n1 := copy (s, a[0:]) ← n1 == 6, s == []int{0, 1, 2, 3, 4, 5}
+            n2 := copy (s, s[2:]) ← n2 == 4, s == []int{2, 3, 4, 5, 4, 5}
+            
+        （4）map
+          定义map的方法： map <from type> <to type>
+          map 的声明
+          m := make(map [string]int)跟slice 方法相似
+          m := map[string]int{
+          "jan":31, 
+          "sep":12,
+          }
+          
+          遍历方法
+          for _, days := range m {
+            year += days
+          }
+          向map中增加元素
+          m['Undecim'] = 40
+          m['feb'] = 21
+          检查元素是否存才
+          var value int
+          var present bool
+          
+          value,present = m['feb']
+          v, ok := m['feb']
+          两种方式
+          
+          从map中删除元素
+          delete（m, "feb"）
