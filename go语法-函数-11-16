@@ -1,0 +1,54 @@
+函数，学习完这一章节，我们就可以动手去写更多的东西了
+
+1、函数定义
+func (p mytype) funcname(q int ) (r,s int ) { return 0,0 }
+func  用于定义一个函数
+p mytype 函数可以绑定到特定的类型上，这个叫做接收者（method），
+funcname 函数的名字
+q int  int类型的输入变量q，参数传递为pass_by_value 按照值传递，会被复制，可考虑传递引用方式
+r，s 为这个函数的返回值，在go中可以返回多个值，
+2、作用域
+在go中定义在函数外部的为全局变量，在函数内定义的为局部变量
+3、函数的多返回值
+func (file *File) Write(b [] byte ) (n int , err error ) os包中*file.Write
+4、延迟代码
+defer 会在函数退出之前进行，使用场景，例如在读写文件时要关闭的文件描述符。
+也可以将多个函数放在defer的列表中，for example
+for i := 0 ; i < 5 ; i++ {
+  defer fmt.Printf("%d ", i)
+}
+defer 按照后进先出的执行顺序
+5、不定参数
+func myfunc （arg ... int）{
+  for _, n := range arg {
+      fmt.PrintLn()
+    }
+}
+参数的类型全部是 int
+如果不指定参数额类型，默认是空的接口，interface{}
+func myfunc(arg ... int ) {
+    myfunc2(arg...) ← 按原样传递
+    myfunc2(arg[:2]...) ← 传递部分
+}
+6、函数作为值
+
+func main（）{
+  a := func() {
+      printLn("hello")
+    }
+    a() //跟C语言的函数指针类似
+}
+
+var xs = map [ int ] func () int {
+    1: func () int { return 10 } ,
+    2: func () int { return 20 } ,
+    3: func () int { return 30 } , ← 必须有逗号
+}
+
+8、回调
+func print （x int）{
+    fmt.printLn()
+}
+
+9、恐慌和恢复
+官方文档不建议使用，暂且不学习，只有当出现了没有解决方案的时候再想起它，或者我们就不该使用。
